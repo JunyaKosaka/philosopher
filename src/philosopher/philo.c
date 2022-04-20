@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/04/19 15:14:27 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/04/19 18:14:30 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	init_philo(t_info *info, int argc, char **argv)
 	return (0);
 }
 
-static int	init_man(t_info *info)
+static int	init_men(t_info *info)
 {
 	t_man	man;
 	int		i;
@@ -57,6 +57,31 @@ static int	solo_philo(int time_to_die)
 	return (1);
 }
 
+static int	init_forks(t_info *info)
+{
+	int	i;
+	int	prev;
+
+	info->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * info->num_of_phils);
+	if (!info->forks)
+		return (error_handler(MALLOC_ERR_MSG));
+	i = -1;
+	while (++i < info->num_of_phils)
+	{
+		if (pthread_mutex_init(&info->forks[i], NULL))
+			return (error_handler(MUTEX_ERR_MSG));
+	}
+	i = -1;
+	while (++i < info->num_of_phils)
+	{
+		prev = (i - 1 + info->num_of_phils) % info->num_of_phils;
+		info->men[i].left_fork = &info->forks[i];
+		info->men[i].right_fork = &info->forks[prev];
+		printf("%d %d\n", i, prev);
+	}
+	return (0);
+}
+
 int	philosopher(int argc, char **argv)
 {
 	t_info	info;
@@ -67,8 +92,13 @@ int	philosopher(int argc, char **argv)
 		return (error_handler(USAGE_MSG));
 	if (info.num_of_phils == 1)
 		return (solo_philo(info.time_to_die));
-	if (init_man(&info)) // ここでmenをmalloc
-		return (0);  // free_all;
+	if (init_men(&info)) // ここでmenをmalloc
+		return (1); // free_all(&info);
+	if (init_forks(&info))
+		return (1); // free_all(&info);
+	// if (init_eat(&info))
+	// 	return (1); // free_all(&info);
+	launcher(&info);
 	printf("%d\n", info.time_to_eat);
 	return (0);	
 }
