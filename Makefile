@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/04/19 15:19:41 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/04/19 19:59:45 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ re: fclean all
 
 test:
 	make
-	./$(NAME) 1 20 30 20
+#		num_of_phils die eat sleep
+	./$(NAME) 2 2000 3000 2000
 
 -include $(DEPS)
 
