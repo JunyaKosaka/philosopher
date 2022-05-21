@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/04/19 18:14:30 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 17:03:51 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	init_philo(t_info *info, int argc, char **argv)
 	info->time_to_eat = ft_atoi(argv[3]);
 	info->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		info->must_eat_cnt = ft_atoi(argv[5]);
+		info->must_eat_cnt = ft_atoi(argv[5]); // ここで0の時は終了すべき
 	// intにならない時のエラーチェック
 	return (0);
 }
@@ -47,13 +47,14 @@ static int	init_men(t_info *info)
 
 static int	solo_philo(int time_to_die)
 {
-	struct timeval	tv;
-	int				id;
+	long long	time;
+	int		id;
 
+	time = get_millisec();
 	id = 1;
-	gettimeofday(&tv, NULL);
-	print_log(tv.tv_sec, tv.tv_usec, id, FORK_MSG);
-	print_log(tv.tv_sec, tv.tv_usec + time_to_die, id, DIED_MSG);
+	printf("%lld %d %s\n", time, id, FORK_MSG);
+	usleep(time_to_die);
+	printf("%lld %d %s\n", time + time_to_die, id, FORK_MSG);
 	return (1);
 }
 
@@ -70,6 +71,10 @@ static int	init_forks(t_info *info)
 	{
 		if (pthread_mutex_init(&info->forks[i], NULL))
 			return (error_handler(MUTEX_ERR_MSG));
+		else
+		{
+			printf("75\n");
+		}
 	}
 	i = -1;
 	while (++i < info->num_of_phils)
@@ -87,9 +92,9 @@ int	philosopher(int argc, char **argv)
 	t_info	info;
 
 	info = (t_info){0}; // 複合リテラル
-	printf("%d\n", info.num_of_phils);
 	if (init_philo(&info, argc, argv))
 		return (error_handler(USAGE_MSG));
+	printf("num of phils:%d\n", info.num_of_phils);
 	if (info.num_of_phils == 1)
 		return (solo_philo(info.time_to_die));
 	if (init_men(&info)) // ここでmenをmalloc

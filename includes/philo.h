@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/04/19 18:07:50 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 16:48:35 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,21 @@ typedef struct s_man
 {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*baton;  // logを書く時など自分にbatonが必要
+	pthread_mutex_t	*done_persons;
 	pthread_t		thread;
 	long long		last_eat_time;
 	int				num_of_phils;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				must_eat_cnt;
 	
 	int				total_eat_cnt;
 	int				my_eat_cnt;
-	int				*total_ate_cnt;
+	int				*done_persons_cnt;
 	int				id;
-	bool			*done;
+	bool			*sim_done; // 終わったかどうか
 }	t_man;
 
 typedef struct s_info
@@ -62,12 +65,13 @@ typedef struct s_info
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
+	int				done_persons_cnt;
 	int				must_eat_cnt;
 }	t_info;
 
 /*  philo  */
 int		philosopher(int argc, char **argv);
-void	print_log(long sec, int usec, int id, char *msg);
+void	print_log(t_man *man, char *msg);
 void	launcher(t_info *info);
 
 /*  utils  */
@@ -78,5 +82,6 @@ void	ft_putendl_fd(char *s, int fd);
 int		ft_isspace(int c);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
+long long	get_millisec(void);
 
 #endif // PHILO_H

@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:31:03 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/04/18 21:35:07 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 15:08:29 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_isdigit(int c)
 	return ('0' <= c && c <= '9');
 }
 
-static int	is_over(long n, int m)
+static bool	is_over(long n, int m)
 {
 	return (n > (LONG_MAX - m) / 10);
 }

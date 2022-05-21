@@ -6,59 +6,116 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/04/19 20:16:07 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 17:11:00 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*  wait until waiting_time passes  */
+void	phil_wait(t_man *man, int waiting_time)
+{
+	long long	start;
+	long long	cur_time;
+
+	start = get_millisec();
+	cur_time = start;
+	while (cur_time - start < waiting_time)
+	{
+		cur_time = get_millisec();
+		if (man->time_to_die <= cur_time - man->last_eat_time)
+		{
+			pthread_mutex_lock(man->baton);
+			print_log(man, DIED_MSG);
+			*(man->sim_done) = true;
+			pthread_mutex_unlock(man->baton);
+			return ;
+		}
+		usleep(50);
+	}
+}
+
 /*  philosopher takes the first fork  */
 void	first_fork(t_man *man)
 {
-	struct timeval	tv;
-
 	if (man->id & 1)
 	{
+		usleep(200);
 		pthread_mutex_lock(man->left_fork);	
 	}
 	else
 	{
-		usleep(100);
 		pthread_mutex_lock(man->right_fork);	
 	}
-	gettimeofday(&tv, NULL);
-	print_log(tv.tv_sec, tv.tv_usec, man->id, FORK_MSG);
+	print_log(man, FORK_MSG);
 }
 
 /*  philosopher takes the second fork  */
 void	second_fork(t_man *man)
 {
-	struct timeval	tv;
-
 	if (man->id & 1)
 	{
 		pthread_mutex_lock(man->right_fork);	
 	}
 	else
 	{
+		usleep(200); // いらないような
 		pthread_mutex_lock(man->left_fork);	
 	}
-	gettimeofday(&tv, NULL);
-	print_log(tv.tv_sec, tv.tv_usec, man->id, FORK_MSG);
+	print_log(man, FORK_MSG);
 }
 
-void	unlock_fork(t_man *man)
+void	take_two_forks(t_man *man)
 {
-	pthread_mutex_unlock(man->left_fork);
+	printf("70\n");
+	first_fork(man);
+	printf("72\n");
+	second_fork(man);
+}
+
+void	unlock_two_forks(t_man *man)
+{
 	pthread_mutex_unlock(man->right_fork);
+	pthread_mutex_unlock(man->left_fork);
 }
 
-void	eat(t_man *man)
+/*  check if eat count reached must_eat_cnt  */
+void	check_eat_cnt(t_man *man)
 {
-	struct timeval	tv;
+	if (man->my_eat_cnt == man->must_eat_cnt)
+	{
+		pthread_mutex_lock(man->done_persons);
+		(man->done_persons_cnt)++;
+		pthread_mutex_unlock(man->done_persons);
+	}
+	if (*(man->done_persons_cnt) == man->num_of_phils)
+		*(man->sim_done) = true; // ここは操作が重なっても良いはず
+}
 
-	gettimeofday(&tv, NULL);
-	print_log(tv.tv_sec, tv.tv_usec, man->id, EAT_MSG);
+void	phil_eat(t_man *man)
+{
+	printf("95\n");
+	take_two_forks(man); // セグフォ
+	printf("97\n");
+	print_log(man, EAT_MSG);
+	printf("98\n");
+	man->last_eat_time = get_millisec();
+	(man->my_eat_cnt)++;
+	check_eat_cnt(man);
+	phil_wait(man, man->time_to_eat);
+	unlock_two_forks(man);
+}
+
+void	phil_sleep(t_man *man)
+{
+	print_log(man, SLEEP_MSG);
+	phil_wait(man, man->time_to_sleep);
+}
+
+void	phil_think(t_man *man)
+{
+	print_log(man, THINK_MSG);
+	phil_wait(man, 50); // 不要かもしれないが続けて同じphilがforkを取らないように
 }
 
 void	*loop_thread(void *p)
@@ -67,20 +124,24 @@ void	*loop_thread(void *p)
 	int		cnt;
 
 	man = p;
-	printf("70:%d\n", man->id);
+	// usleep(100000);
+	printf("123:%d\n", man->id);
 	cnt = 0;
-	while (1)
+	man->last_eat_time = get_millisec();
+	printf("126:%d\n", man->id);
+	while (true) // *(man->sim_done) == false
 	{
-		first_fork(man);
-		second_fork(man);
-		eat(man);
-		unlock_fork(man);
-		usleep(man->time_to_eat);
+		printf("128:%d\n", man->id); 
+		phil_eat(man); // segmentation fault
+		printf("131:%d\n", man->id); 
+		phil_sleep(man);
+		printf("132:%d\n", man->id); 
+		phil_think(man);
 		
-		usleep(man->time_to_sleep);
 		cnt++;
-		if (cnt >= 10) break ;
+		if (cnt >= 20) break ;
 	}
+	printf("136:%d\n", man->id);
 	return (NULL);
 }
 
@@ -90,7 +151,10 @@ void	launcher(t_info *info)
 
 	i = -1;
 	while (++i < info->num_of_phils)
+	{
+		printf("146:%d\n", i);
 		pthread_create(&info->men[i].thread, NULL, &loop_thread, (void *)&info->men[i]);
+	}
 	i = -1;
 	while (++i < info->num_of_phils)
 		pthread_join(info->men[i].thread, NULL);

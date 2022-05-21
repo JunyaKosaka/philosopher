@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/04/19 19:59:45 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/21 17:05:39 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,8 @@ DEPS		:= $(OBJS:.o=.d)
 INCDIRS		:= includes
 INCLUDE		:= $(addprefix -I, $(INCDIRS))
 
-CC			:= cc
-CFLAGS		:= -Wall -Wextra -Werror -MMD -MP
+CC			:= cc -g -O0 -pthread
+CFLAGS		:= -Wall -Wextra -Werror -MMD -MP -fsanitize=address
 # LFLAGS		:= -L$(LIBFTDIR) -lft -L$(READLINEDIR)/lib -lreadline -lhistory
 
 all: $(NAME)
@@ -49,8 +49,8 @@ re: fclean all
 
 test:
 	make
-#		num_of_phils die eat sleep
-	./$(NAME) 2 2000 3000 2000
+#		num_of_phils die eat sleep (number_of_times_each_philosopher_must_eat)
+	./$(NAME) 4 1000 200 200
 
 -include $(DEPS)
 
