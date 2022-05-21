@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 17:56:54 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 18:50:49 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,8 @@ void	phil_wait(t_man *man, int waiting_time)
 		cur_time = get_millisec();
 		if (man->time_to_die <= cur_time - man->last_eat_time)
 		{
-			pthread_mutex_lock(man->baton);
 			print_log(man, DIED_MSG);
 			*(man->sim_done) = true;
-			pthread_mutex_unlock(man->baton);
 			return ;
 		}
 		usleep(50);
@@ -110,7 +108,7 @@ void	phil_sleep(t_man *man)
 void	phil_think(t_man *man)
 {
 	print_log(man, THINK_MSG);
-	phil_wait(man, 50); // 不要かもしれないが続けて同じphilがforkを取らないように
+	phil_wait(man, 100); // 不要かもしれないが続けて同じphilがforkを取らないように
 }
 
 void	*loop_thread(void *p)
@@ -127,9 +125,8 @@ void	*loop_thread(void *p)
 		phil_eat(man); // segmentation fault
 		phil_sleep(man);
 		phil_think(man);
-		
 		cnt++;
-		if (cnt >= 20) break ;
+		if (cnt >= 5) break ;
 	}
 	return (NULL);
 }
@@ -139,7 +136,7 @@ void	launcher(t_info *info)
 	int	i;
 
 	i = -1;
-	while (++i < info->num_of_phils - 3)
+	while (++i < info->num_of_phils)
 		pthread_create(&info->men[i].thread, NULL, &loop_thread, (void *)&info->men[i]);
 	i = -1;
 	while (++i < info->num_of_phils)

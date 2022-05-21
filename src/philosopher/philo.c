@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 18:12:53 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 18:50:02 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ static int	init_philo(t_info *info, int argc, char **argv)
 	info->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		info->must_eat_cnt = ft_atoi(argv[5]); // ここで0の時は終了すべき
+	else
+		info->must_eat_cnt = -1;
 	// intにならない時のエラーチェック
-	pthread_mutex_init(&info->baton, NULL);
+	pthread_mutex_init(&(info->baton), NULL);
 	return (0);
 }
 
@@ -38,7 +40,12 @@ static int	init_men(t_info *info)
 		return (error_handler("malloc error"));
 	man = (t_man){0};
 	man.num_of_phils = info->num_of_phils; // この初期化必要か考える
+	man.time_to_die = info->time_to_die;
+	man.time_to_eat = info->time_to_eat;
+	man.time_to_sleep = info->time_to_sleep;
+	man.must_eat_cnt = info->must_eat_cnt;
 	man.baton = &(info->baton);
+	man.done_persons_cnt = &(info->done_persons_cnt);
 	man.sim_done = &(info->sim_done);
 	i = -1;
 	while (++i < info->num_of_phils)

@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 18:13:06 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 18:33:12 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_man
 	int				time_to_sleep;
 	int				must_eat_cnt;
 	
-	int				total_eat_cnt;
+	// int				total_eat_cnt;
 	int				my_eat_cnt;
 	int				*done_persons_cnt;
 	int				id;
