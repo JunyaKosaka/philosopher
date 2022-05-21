@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 17:03:51 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 18:12:53 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 [number_of_times_each_philosopher_must_eat] */ 
 static int	init_philo(t_info *info, int argc, char **argv)
 {
+	
 	info->num_of_phils = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
@@ -23,6 +24,7 @@ static int	init_philo(t_info *info, int argc, char **argv)
 	if (argc == 6)
 		info->must_eat_cnt = ft_atoi(argv[5]); // ここで0の時は終了すべき
 	// intにならない時のエラーチェック
+	pthread_mutex_init(&info->baton, NULL);
 	return (0);
 }
 
@@ -35,7 +37,9 @@ static int	init_men(t_info *info)
 	if (!(info->men))
 		return (error_handler("malloc error"));
 	man = (t_man){0};
-	// man.num_of_phils = info->num_of_phils; // この初期化必要か考える
+	man.num_of_phils = info->num_of_phils; // この初期化必要か考える
+	man.baton = &(info->baton);
+	man.sim_done = &(info->sim_done);
 	i = -1;
 	while (++i < info->num_of_phils)
 	{
@@ -71,10 +75,6 @@ static int	init_forks(t_info *info)
 	{
 		if (pthread_mutex_init(&info->forks[i], NULL))
 			return (error_handler(MUTEX_ERR_MSG));
-		else
-		{
-			printf("75\n");
-		}
 	}
 	i = -1;
 	while (++i < info->num_of_phils)

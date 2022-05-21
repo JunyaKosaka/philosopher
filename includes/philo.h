@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 16:48:35 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 18:13:06 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,14 @@ typedef struct s_info
 {
 	t_man			*men; // 人数分の配列
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	baton;
 	int				num_of_phils;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				done_persons_cnt;
 	int				must_eat_cnt;
+	bool			sim_done;
 }	t_info;
 
 /*  philo  */

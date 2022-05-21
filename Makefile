@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/21 17:05:39 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/21 18:10:43 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ INCDIRS		:= includes
 INCLUDE		:= $(addprefix -I, $(INCDIRS))
 
 CC			:= cc -g -O0 -pthread
-CFLAGS		:= -Wall -Wextra -Werror -MMD -MP -fsanitize=address
+CFLAGS		:= -Wall -Wextra -Werror -MMD -MP # -fsanitize=address
 # LFLAGS		:= -L$(LIBFTDIR) -lft -L$(READLINEDIR)/lib -lreadline -lhistory
 
 all: $(NAME)

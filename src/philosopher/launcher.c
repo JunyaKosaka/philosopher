@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 17:11:00 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/21 17:56:54 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ void	second_fork(t_man *man)
 
 void	take_two_forks(t_man *man)
 {
-	printf("70\n");
 	first_fork(man);
-	printf("72\n");
 	second_fork(man);
 }
 
@@ -94,11 +92,8 @@ void	check_eat_cnt(t_man *man)
 
 void	phil_eat(t_man *man)
 {
-	printf("95\n");
 	take_two_forks(man); // セグフォ
-	printf("97\n");
 	print_log(man, EAT_MSG);
-	printf("98\n");
 	man->last_eat_time = get_millisec();
 	(man->my_eat_cnt)++;
 	check_eat_cnt(man);
@@ -125,23 +120,17 @@ void	*loop_thread(void *p)
 
 	man = p;
 	// usleep(100000);
-	printf("123:%d\n", man->id);
 	cnt = 0;
 	man->last_eat_time = get_millisec();
-	printf("126:%d\n", man->id);
 	while (true) // *(man->sim_done) == false
 	{
-		printf("128:%d\n", man->id); 
 		phil_eat(man); // segmentation fault
-		printf("131:%d\n", man->id); 
 		phil_sleep(man);
-		printf("132:%d\n", man->id); 
 		phil_think(man);
 		
 		cnt++;
 		if (cnt >= 20) break ;
 	}
-	printf("136:%d\n", man->id);
 	return (NULL);
 }
 
@@ -150,11 +139,8 @@ void	launcher(t_info *info)
 	int	i;
 
 	i = -1;
-	while (++i < info->num_of_phils)
-	{
-		printf("146:%d\n", i);
+	while (++i < info->num_of_phils - 3)
 		pthread_create(&info->men[i].thread, NULL, &loop_thread, (void *)&info->men[i]);
-	}
 	i = -1;
 	while (++i < info->num_of_phils)
 		pthread_join(info->men[i].thread, NULL);
