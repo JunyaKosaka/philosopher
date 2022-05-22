@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/22 18:23:48 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/22 22:55:04 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ test:
 	make test1
 	make test2
 	make test3
+# make test4
 	make solo
 
 test1:
@@ -67,10 +68,13 @@ test3:
 	make
 	./$(NAME) 10 410 200 100 5
 
+test4:
+	make
+	./$(NAME) 200 800 200 5
+
 solo:
 	make
 	./$(NAME) 1 310 200 100 3
-
 
 -include $(DEPS)
 
