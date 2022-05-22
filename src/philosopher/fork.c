@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:33:55 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 17:47:55 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 18:29:29 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void	take_two_forks(t_man *man)
 
 void	unlock_two_forks(t_man *man)
 {
-	pthread_mutex_unlock(man->right_fork);
 	pthread_mutex_unlock(man->left_fork);
+	pthread_mutex_unlock(man->right_fork);
 }
