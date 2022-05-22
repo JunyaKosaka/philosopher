@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 16:57:01 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 18:30:34 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ int	solo_philo(int time_to_die)
 	printf("%lld %d %s\n", time, id, FORK_MSG);
 	usleep(time_to_die * 1000);
 	printf("%lld %d %s\n", time + time_to_die, id, DIED_MSG);
-	return (1);
+	return (0);
 }

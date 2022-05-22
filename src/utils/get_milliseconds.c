@@ -6,13 +6,13 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 11:20:18 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 16:58:59 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 18:32:49 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*  get milli seconds  */
+/*  get current time in milli seconds  */
 long long	get_millisec(void)
 {
 	struct timeval	time;
