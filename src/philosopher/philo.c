@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 18:50:02 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 12:40:53 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,23 @@
 
 /*  number_of_philosophers time_to_die time_to_eat time_to_sleep
 [number_of_times_each_philosopher_must_eat] */ 
-static int	init_philo(t_info *info, int argc, char **argv)
+static int	init_info(t_info *info, int argc, char **argv)
 {
-	
 	info->num_of_phils = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
 	info->time_to_sleep = ft_atoi(argv[4]);
+	info->done_persons_cnt = 0;
+	info->must_eat_cnt = -1;
+	info->sim_done = false; // 複合リテラルがあるので不要のはず
 	if (argc == 6)
+	{
 		info->must_eat_cnt = ft_atoi(argv[5]); // ここで0の時は終了すべき
-	else
-		info->must_eat_cnt = -1;
+		printf("27 %d\n", info->must_eat_cnt);
+	}
 	// intにならない時のエラーチェック
 	pthread_mutex_init(&(info->baton), NULL);
+	pthread_mutex_init(&(info->done_persons), NULL);
 	return (0);
 }
 
@@ -39,12 +43,15 @@ static int	init_men(t_info *info)
 	if (!(info->men))
 		return (error_handler("malloc error"));
 	man = (t_man){0};
+	man.baton = &(info->baton);
+	man.done_persons = &(info->done_persons);
+	man.last_eat_time = get_millisec();
 	man.num_of_phils = info->num_of_phils; // この初期化必要か考える
 	man.time_to_die = info->time_to_die;
 	man.time_to_eat = info->time_to_eat;
 	man.time_to_sleep = info->time_to_sleep;
 	man.must_eat_cnt = info->must_eat_cnt;
-	man.baton = &(info->baton);
+	man.my_eat_cnt = 0;  // 不要
 	man.done_persons_cnt = &(info->done_persons_cnt);
 	man.sim_done = &(info->sim_done);
 	i = -1;
@@ -89,7 +96,7 @@ static int	init_forks(t_info *info)
 		prev = (i - 1 + info->num_of_phils) % info->num_of_phils;
 		info->men[i].left_fork = &info->forks[i];
 		info->men[i].right_fork = &info->forks[prev];
-		printf("%d %d\n", i, prev);
+		// printf("%d %d\n", i, prev);
 	}
 	return (0);
 }
@@ -99,7 +106,7 @@ int	philosopher(int argc, char **argv)
 	t_info	info;
 
 	info = (t_info){0}; // 複合リテラル
-	if (init_philo(&info, argc, argv))
+	if (init_info(&info, argc, argv))
 		return (error_handler(USAGE_MSG));
 	printf("num of phils:%d\n", info.num_of_phils);
 	if (info.num_of_phils == 1)

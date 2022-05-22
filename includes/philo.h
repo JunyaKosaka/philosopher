@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 18:33:12 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 12:39:19 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ typedef struct s_man
 	
 	// int				total_eat_cnt;
 	int				my_eat_cnt;
-	int				*done_persons_cnt;
 	int				id;
+	int				*done_persons_cnt;
 	bool			*sim_done; // 終わったかどうか
 }	t_man;
 
@@ -62,6 +62,7 @@ typedef struct s_info
 	t_man			*men; // 人数分の配列
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	baton;
+	pthread_mutex_t	done_persons;
 	int				num_of_phils;
 	int				time_to_die;
 	int				time_to_eat;

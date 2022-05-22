@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 18:50:49 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 12:45:49 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,20 @@ void	check_eat_cnt(t_man *man)
 {
 	if (man->my_eat_cnt == man->must_eat_cnt)
 	{
+		printf("== 88 %d %d %d\n", man->id, *(man->done_persons_cnt), man->num_of_phils);
 		pthread_mutex_lock(man->done_persons);
-		(man->done_persons_cnt)++;
+		*(man->done_persons_cnt) += 1;
 		pthread_mutex_unlock(man->done_persons);
 	}
 	if (*(man->done_persons_cnt) == man->num_of_phils)
+	{
 		*(man->sim_done) = true; // ここは操作が重なっても良いはず
+	}
 }
 
 void	phil_eat(t_man *man)
 {
-	take_two_forks(man); // セグフォ
+	take_two_forks(man);
 	print_log(man, EAT_MSG);
 	man->last_eat_time = get_millisec();
 	(man->my_eat_cnt)++;
@@ -108,7 +111,7 @@ void	phil_sleep(t_man *man)
 void	phil_think(t_man *man)
 {
 	print_log(man, THINK_MSG);
-	phil_wait(man, 100); // 不要かもしれないが続けて同じphilがforkを取らないように
+	// phil_wait(man, 100); // 不要かもしれないが続けて同じphilがforkを取らないように
 }
 
 void	*loop_thread(void *p)
@@ -117,16 +120,15 @@ void	*loop_thread(void *p)
 	int		cnt;
 
 	man = p;
-	// usleep(100000);
 	cnt = 0;
-	man->last_eat_time = get_millisec();
-	while (true) // *(man->sim_done) == false
+	// man->last_eat_time = get_millisec(); // init_menでやる
+	while (*(man->sim_done) == false) // 
 	{
-		phil_eat(man); // segmentation fault
+		phil_eat(man);
 		phil_sleep(man);
 		phil_think(man);
 		cnt++;
-		if (cnt >= 5) break ;
+		// if (cnt >= 2) break ;
 	}
 	return (NULL);
 }
