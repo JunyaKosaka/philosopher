@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/22 16:12:09 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/22 16:37:26 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ re: fclean all
 test:
 	make test1
 	make test2
+	make test3
 	make solo
 
 test1:
@@ -61,6 +62,10 @@ test2:
 	make
 	./$(NAME) 4 310 200 100 3
 
+test3:
+	make
+	./$(NAME) 4 310 200 100 1
+
 solo:
 	make
 	./$(NAME) 1 310 200 100 3
@@ -68,7 +73,7 @@ solo:
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re test test2 solo
+.PHONY: all clean fclean re test test1 test2 test3 solo
 
 echo:
 	echo $(SRCS) >> Makefile

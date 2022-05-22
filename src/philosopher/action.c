@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 15:23:35 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:42:24 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	phil_wait(t_man *man, int waiting_time)
 void	phil_eat(t_man *man)
 {
 	long long	cur_time;
-	
+
 	take_two_forks(man);
 	cur_time = get_millisec();
 	if (cur_time - man->last_eat_time >= man->time_to_die)
@@ -61,5 +61,4 @@ void	phil_sleep(t_man *man)
 void	phil_think(t_man *man)
 {
 	print_log(man, THINK_MSG);
-	// phil_wait(man, 100); // 不要かもしれないが続けて同じphilがforkを取らないように
 }

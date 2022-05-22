@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 16:09:41 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:43:53 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	*loop_thread(void *p)
 	man = p;
 	while (*(man->sim_done) == false)
 	{
-		// printf("37 %d %lld %d\n", man->time_to_die, man->last_eat_time, man->id);
 		phil_eat(man);
 		phil_sleep(man);
 		phil_think(man);
@@ -49,7 +48,8 @@ void	launcher(t_info *info)
 
 	i = -1;
 	while (++i < info->num_of_phils)
-		pthread_create(&info->men[i].thread, NULL, &loop_thread, (void *)&info->men[i]);
+		pthread_create(&info->men[i].thread, NULL, &loop_thread, \
+						(void *)&info->men[i]);
 	i = -1;
 	while (++i < info->num_of_phils)
 		pthread_join(info->men[i].thread, NULL);
@@ -58,7 +58,7 @@ void	launcher(t_info *info)
 int	solo_philo(int time_to_die)
 {
 	long long	time;
-	int		id;
+	int			id;
 
 	time = get_millisec();
 	id = 1;

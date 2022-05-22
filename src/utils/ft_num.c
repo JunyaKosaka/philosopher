@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:31:03 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/21 15:08:29 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:34:48 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,7 @@ int	ft_atoi(const char *str)
 	while (ft_isdigit(*str))
 	{
 		if (is_over(ret, *str - '0'))
-		{
-			if (sign > 0)
-				return ((int)LONG_MAX);
-			else
-				return ((int)LONG_MIN);
-		}
+			return (-1);
 		ret = ret * 10 + (*str - '0');
 		str++;
 	}
