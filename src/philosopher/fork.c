@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:33:55 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 16:43:13 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 17:47:55 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	second_fork(t_man *man)
 	}
 	else
 	{
-		usleep(200); // いらないような
+		usleep(200);
 		pthread_mutex_lock(man->left_fork);
 	}
 	print_log(man, FORK_MSG);

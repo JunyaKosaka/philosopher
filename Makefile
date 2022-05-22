@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/22 16:37:26 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/22 18:02:15 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		:= philo
 
 SRCROOT		:= src
 SRCDIRS		:= $(shell find $(SRCROOT) -type d)
-SRCS		:= $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
-# SRCS		:= 
+# SRCS		:= $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
+SRCS		:= src/philosopher/action.c src/philosopher/fork.c src/philosopher/launcher.c src/philosopher/philo.c src/philosopher/print_log.c src/utils/error_handler.c src/utils/free.c src/utils/ft_num.c src/utils/ft_str.c src/utils/get_milliseconds.c src/main/main.c
 
 OBJROOT		:= obj
 OBJDIRS		:= $(patsubst $(SRCROOT)/%, $(OBJROOT)/%, $(SRCDIRS))
@@ -28,7 +28,6 @@ INCLUDE		:= $(addprefix -I, $(INCDIRS))
 
 CC			:= cc -g -O0 -pthread
 CFLAGS		:= -Wall -Wextra -Werror -MMD -MP # -fsanitize=address
-# LFLAGS		:= -L$(LIBFTDIR) -lft -L$(READLINEDIR)/lib -lreadline -lhistory
 
 all: $(NAME)
 
@@ -47,6 +46,9 @@ fclean: clean
 
 re: fclean all
 
+norm:
+	norminette $(SRCROOT) $(INCDIRS)
+
 test:
 	make test1
 	make test2
@@ -55,7 +57,6 @@ test:
 
 test1:
 	make
-#		num_of_phils die eat sleep (number_of_times_each_philosopher_must_eat)
 	./$(NAME) 4 600 200 200 5
 
 test2:
@@ -64,7 +65,7 @@ test2:
 
 test3:
 	make
-	./$(NAME) 4 310 200 100 1
+	./$(NAME) 10 410 200 100 5
 
 solo:
 	make
@@ -73,7 +74,7 @@ solo:
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re test test1 test2 test3 solo
+.PHONY: all clean fclean re norm test test1 test2 test3 solo
 
 echo:
 	echo $(SRCS) >> Makefile
