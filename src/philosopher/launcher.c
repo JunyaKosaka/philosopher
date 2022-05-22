@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 16:47:41 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:57:01 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	launcher(t_info *info)
 		pthread_join(info->men[i].thread, NULL);
 }
 
+/*  solo philosopher cannot survive  */
 int	solo_philo(int time_to_die)
 {
 	long long	time;

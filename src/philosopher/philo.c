@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 16:52:48 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:55:55 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static int	init_info(t_info *info, int argc, char **argv)
 	return (0);
 }
 
+/*  initialize all philosophers  */
 static int	init_men(t_info *info)
 {
 	t_man	man;
@@ -63,6 +64,7 @@ static int	init_men(t_info *info)
 	return (0);
 }
 
+/*  initialize all forks  */
 static int	init_forks(t_info *info)
 {
 	int	i;
