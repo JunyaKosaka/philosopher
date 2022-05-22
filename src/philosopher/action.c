@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 14:31:52 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 14:35:59 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,6 @@ void	phil_wait(t_man *man, int waiting_time)
 	}
 }
 
-/*  check if eat count reached must_eat_cnt  */
-static void	check_eat_cnt(t_man *man)
-{
-	if (man->my_eat_cnt == man->must_eat_cnt)
-	{
-		pthread_mutex_lock(man->done_persons);
-		*(man->done_persons_cnt) += 1;
-		pthread_mutex_unlock(man->done_persons);
-	}
-	if (*(man->done_persons_cnt) == man->num_of_phils)
-	{
-		*(man->sim_done) = true; // ここは操作が重なっても良いはず
-	}
-}
 
 void	phil_eat(t_man *man)
 {
@@ -64,7 +50,6 @@ void	phil_eat(t_man *man)
 	print_log(man, EAT_MSG);
 	phil_wait(man, man->time_to_eat);
 	(man->my_eat_cnt)++;
-	check_eat_cnt(man);
 	unlock_two_forks(man);
 }
 
