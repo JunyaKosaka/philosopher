@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 15:23:58 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:09:41 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,17 @@ void	launcher(t_info *info)
 	i = -1;
 	while (++i < info->num_of_phils)
 		pthread_join(info->men[i].thread, NULL);
+}
+
+int	solo_philo(int time_to_die)
+{
+	long long	time;
+	int		id;
+
+	time = get_millisec();
+	id = 1;
+	printf("%lld %d %s\n", time, id, FORK_MSG);
+	usleep(time_to_die * 1000);
+	printf("%lld %d %s\n", time + time_to_die, id, DIED_MSG);
+	return (1);
 }

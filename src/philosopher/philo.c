@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 16:05:59 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:11:16 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,6 @@ static int	init_men(t_info *info)
 	return (0);
 }
 
-static int	solo_philo(int time_to_die)
-{
-	long long	time;
-	int		id;
-
-	time = get_millisec();
-	id = 1;
-	printf("%lld %d %s\n", time, id, FORK_MSG);
-	usleep(time_to_die * 1000);
-	printf("%lld %d %s\n", time + time_to_die, id, DIED_MSG);
-	return (1);
-}
-
 static int	init_forks(t_info *info)
 {
 	int	i;
@@ -96,7 +83,6 @@ static int	init_forks(t_info *info)
 		prev = (i - 1 + info->num_of_phils) % info->num_of_phils;
 		info->men[i].left_fork = &info->forks[i];
 		info->men[i].right_fork = &info->forks[prev];
-		// printf("%d %d\n", i, prev);
 	}
 	return (0);
 }

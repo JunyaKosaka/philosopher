@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/22 16:06:18 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/22 16:12:09 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,9 +48,14 @@ fclean: clean
 re: fclean all
 
 test:
+	make test1
+	make test2
+	make solo
+
+test1:
 	make
 #		num_of_phils die eat sleep (number_of_times_each_philosopher_must_eat)
-	./$(NAME) 4 600 200 200 20
+	./$(NAME) 4 600 200 200 5
 
 test2:
 	make
@@ -59,6 +64,7 @@ test2:
 solo:
 	make
 	./$(NAME) 1 310 200 100 3
+
 
 -include $(DEPS)
 
