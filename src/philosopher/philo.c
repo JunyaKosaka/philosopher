@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 16:44:14 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:52:48 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,17 @@ static int	init_forks(t_info *info)
 	return (0);
 }
 
+void	destroy_all_mutexes(t_info *info)
+{
+	int	i;
+
+	i = -1;
+	while (++i < info->num_of_phils)
+		pthread_mutex_destroy(&(info->forks[i]));
+	pthread_mutex_destroy(&(info->baton));
+	pthread_mutex_destroy(&(info->done_persons));
+}
+
 int	philosopher(int argc, char **argv)
 {
 	t_info	info;
@@ -103,5 +114,6 @@ int	philosopher(int argc, char **argv)
 	if (init_forks(&info))
 		return (free_all(&info));
 	launcher(&info);
+	destroy_all_mutexes(&info);
 	return (free_all(&info));
 }
