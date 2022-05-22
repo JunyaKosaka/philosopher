@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/22 18:02:15 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/22 18:23:48 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ DEPS		:= $(OBJS:.o=.d)
 INCDIRS		:= includes
 INCLUDE		:= $(addprefix -I, $(INCDIRS))
 
-CC			:= cc -g -O0 -pthread
+CC			:= cc -pthread
 CFLAGS		:= -Wall -Wextra -Werror -MMD -MP # -fsanitize=address
 
 all: $(NAME)
@@ -75,6 +75,3 @@ solo:
 -include $(DEPS)
 
 .PHONY: all clean fclean re norm test test1 test2 test3 solo
-
-echo:
-	echo $(SRCS) >> Makefile
