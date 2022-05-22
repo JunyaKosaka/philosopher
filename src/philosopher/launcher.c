@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 14:37:03 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 15:23:58 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	*loop_thread(void *p)
 	man = p;
 	while (*(man->sim_done) == false)
 	{
-		// printf("22 %d %lld %d\n", man->time_to_die, man->last_eat_time, man->id);
+		// printf("37 %d %lld %d\n", man->time_to_die, man->last_eat_time, man->id);
 		phil_eat(man);
 		phil_sleep(man);
 		phil_think(man);

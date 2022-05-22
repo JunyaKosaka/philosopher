@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 14:35:59 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 15:23:35 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,13 @@ void	phil_wait(t_man *man, int waiting_time)
 		if (man->time_to_die <= cur_time - man->last_eat_time)
 		{
 			print_log(man, DIED_MSG);
-			*(man->sim_done) = true;
 			return ;
 		}
 		usleep(50);
 	}
 }
 
-
+/*  philosopher eats  */
 void	phil_eat(t_man *man)
 {
 	long long	cur_time;
@@ -43,9 +42,7 @@ void	phil_eat(t_man *man)
 	if (cur_time - man->last_eat_time >= man->time_to_die)
 	{
 		print_log(man, DIED_MSG);
-		*(man->sim_done) = true;
 	}
-	// ここで死亡している可能性がある
 	man->last_eat_time = get_millisec();
 	print_log(man, EAT_MSG);
 	phil_wait(man, man->time_to_eat);
@@ -53,12 +50,14 @@ void	phil_eat(t_man *man)
 	unlock_two_forks(man);
 }
 
+/*  philosopher sleeps  */
 void	phil_sleep(t_man *man)
 {
 	print_log(man, SLEEP_MSG);
 	phil_wait(man, man->time_to_sleep);
 }
 
+/*  philosopher thinks  */
 void	phil_think(t_man *man)
 {
 	print_log(man, THINK_MSG);

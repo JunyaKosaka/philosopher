@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:42:32 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/04/15 16:45:27 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 15:17:37 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,19 @@ void	ft_putendl_fd(char *s, int fd)
 {
 	ft_putstr_fd(s, fd);
 	write(fd, "\n", 1);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned char	*pt_1;
+	unsigned char	*pt_2;
+
+	pt_1 = (unsigned char *)s1;
+	pt_2 = (unsigned char *)s2;
+	while ((*pt_1 == *pt_2) && (*pt_1 != '\0'))
+	{
+		pt_1++;
+		pt_2++;
+	}
+	return (*pt_1 - *pt_2);
 }

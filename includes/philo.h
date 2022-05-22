@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 15:13:44 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 15:56:11 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ void	ft_putendl_fd(char *s, int fd);
 int		ft_isspace(int c);
 int		ft_isdigit(int c);
 int		ft_atoi(const char *str);
+int		ft_strcmp(const char *s1, const char *s2);
+
+int		free_all(t_info *info);
 long long	get_millisec(void);
 
 #endif // PHILO_H

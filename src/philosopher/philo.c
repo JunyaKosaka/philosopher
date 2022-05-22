@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 12:40:53 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:05:59 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static int	solo_philo(int time_to_die)
 	time = get_millisec();
 	id = 1;
 	printf("%lld %d %s\n", time, id, FORK_MSG);
-	usleep(time_to_die);
-	printf("%lld %d %s\n", time + time_to_die, id, FORK_MSG);
+	usleep(time_to_die * 1000);
+	printf("%lld %d %s\n", time + time_to_die, id, DIED_MSG);
 	return (1);
 }
 
@@ -112,9 +112,9 @@ int	philosopher(int argc, char **argv)
 	if (info.num_of_phils == 1)
 		return (solo_philo(info.time_to_die));
 	if (init_men(&info)) // ここでmenをmalloc
-		return (1); // free_all(&info);
-	if (init_forks(&info))
-		return (1); // free_all(&info);
+		return (free_all(&info)); // free_all(&info);
+	if (init_forks(&info)) // ここで
+		return (free_all(&info)); // free_all(&info);
 	// if (init_eat(&info))
 	// 	return (1); // free_all(&info);
 	launcher(&info);

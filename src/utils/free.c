@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_log.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/18 23:33:44 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 15:19:22 by jkosaka          ###   ########.fr       */
+/*   Created: 2022/05/22 15:44:38 by jkosaka           #+#    #+#             */
+/*   Updated: 2022/05/22 15:54:52 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*  print log with message  */
-void	print_log(t_man *man, char *msg)
+int	free_all(t_info *info)
 {
-	long long	time;
-
-	pthread_mutex_lock(man->baton);
-	if (*(man->sim_done) == false)
-	{
-		time = get_millisec();
-		printf("%lld %d %s\n", time, man->id, msg);
-		if (!ft_strcmp(msg, DIED_MSG))
-			*(man->sim_done) = true;
-	}
-	pthread_mutex_unlock(man->baton);
+	if (info->men)
+		free(info->men);
+	if (info->forks)
+		free(info->forks);	
+	return (0);
 }
