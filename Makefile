@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/22 12:37:53 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/22 12:46:48 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ re: fclean all
 test:
 	make
 #		num_of_phils die eat sleep (number_of_times_each_philosopher_must_eat)
-	./$(NAME) 4 2000 200 200 2
+	./$(NAME) 4 2000 200 200 20
 
 -include $(DEPS)
 

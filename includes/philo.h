@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 12:39:19 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 13:39:52 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_man
 	int				time_to_sleep;
 	int				must_eat_cnt;
 	
-	// int				total_eat_cnt;
 	int				my_eat_cnt;
 	int				id;
 	int				*done_persons_cnt;
@@ -76,6 +75,16 @@ typedef struct s_info
 int		philosopher(int argc, char **argv);
 void	print_log(t_man *man, char *msg);
 void	launcher(t_info *info);
+
+/*  fork  */
+void	take_two_forks(t_man *man);
+void	unlock_two_forks(t_man *man);
+
+/*  action  */
+void	phil_wait(t_man *man, int waiting_time);
+void	phil_eat(t_man *man);
+void	phil_sleep(t_man *man);
+void	phil_think(t_man *man);
 
 /*  utils  */
 int		error_handler(char *msg);
