@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 13:39:52 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 15:13:44 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define EAT_MSG "is eating"
 # define SLEEP_MSG "is sleeping"
 # define THINK_MSG "is thinking"
-# define DIED_MSG "is died"
+# define DIED_MSG "died"
 
 // typedef struct timeeval t_timeeval;
 
