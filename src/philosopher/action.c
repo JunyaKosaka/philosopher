@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 13:40:08 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/22 14:31:52 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,21 @@ static void	check_eat_cnt(t_man *man)
 
 void	phil_eat(t_man *man)
 {
+	long long	cur_time;
+	
 	take_two_forks(man);
-	print_log(man, EAT_MSG);
+	cur_time = get_millisec();
+	if (cur_time - man->last_eat_time >= man->time_to_die)
+	{
+		print_log(man, DIED_MSG);
+		*(man->sim_done) = true;
+	}
+	// ここで死亡している可能性がある
 	man->last_eat_time = get_millisec();
+	print_log(man, EAT_MSG);
+	phil_wait(man, man->time_to_eat);
 	(man->my_eat_cnt)++;
 	check_eat_cnt(man);
-	phil_wait(man, man->time_to_eat);
 	unlock_two_forks(man);
 }
 
