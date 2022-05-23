@@ -1,12 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
+/* ************************************************************************** */ /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:33:55 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 14:06:55 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 15:23:35 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +16,13 @@ static void	first_fork(t_man *man)
 {
 	if (man->id & 1)
 	{
-		pthread_mutex_lock(man->left_fork); // monitor必要
+		pthread_mutex_lock(man->left_fork);
 	}
 	else
 	{
 		usleep(200);
 		pthread_mutex_lock(man->right_fork);
 	}
-	// 死んでいるか確認
 	print_log(man, FORK_MSG);
 }
 
