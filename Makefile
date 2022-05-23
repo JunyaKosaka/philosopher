@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/23 15:19:41 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/23 15:32:44 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ test:
 	make test1
 	make test2
 	make test3
-# make test4
+	make test4
 	make solo
 
 test1:
