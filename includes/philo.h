@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 22:48:35 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:03:28 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,17 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-/*  error message */
+/*  error message  */
 # define USAGE_MSG 	"[usage]: ./philo <philos> <die> <eat> <sleep> (<must eat>)"
 # define MUTEX_ERR_MSG "pthread_mutex_init error"
 # define MALLOC_ERR_MSG "malloc error"
 
+/*  philosopher action message  */
 # define FORK_MSG "has taken a fork"
 # define EAT_MSG "is eating"
 # define SLEEP_MSG "is sleeping"
 # define THINK_MSG "is thinking"
 # define DIED_MSG "died"
-
-// typedef struct timeeval t_timeeval;
 
 typedef struct s_man
 {

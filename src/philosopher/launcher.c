@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 22:22:31 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 12:04:53 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	*loop_thread(void *p)
 		phil_sleep(man);
 		phil_think(man);
 		check_eat_cnt(man);
+		// printf("41 id:%d\n", man->id);
 	}
 	return (NULL);
 }

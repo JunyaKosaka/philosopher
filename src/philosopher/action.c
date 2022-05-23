@@ -6,14 +6,14 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 18:27:25 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:04:12 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
 /*  wait until waiting_time passes  */
-void	phil_wait(t_man *man, int waiting_time)
+void	phil_wait(t_man *man, int waiting_time) // ms
 {
 	long long	start;
 	long long	cur_time;
@@ -28,7 +28,7 @@ void	phil_wait(t_man *man, int waiting_time)
 			print_log(man, DIED_MSG);
 			return ;
 		}
-		usleep(50);
+		usleep(200);
 	}
 }
 
