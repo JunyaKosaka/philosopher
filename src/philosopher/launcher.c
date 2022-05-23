@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 12:04:53 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:23:00 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,27 @@ void	*loop_thread(void *p)
 		phil_sleep(man);
 		phil_think(man);
 		check_eat_cnt(man);
-		// printf("41 id:%d\n", man->id);
+	}
+	return (NULL);
+}
+
+void	*monitor_thread(void *p)
+{
+	t_info		*info;
+	long long	cur_time;
+	int			i;
+
+	info = p;
+	while (info->sim_done == false)
+	{
+		cur_time = get_millisec();
+		i = -1;
+		while (++i < info->num_of_phils)
+		{
+			if (info->time_to_die <= cur_time - info->men[i].last_eat_time)
+				info->sim_done = true;
+		}
+		usleep(50);
 	}
 	return (NULL);
 }
@@ -51,6 +71,8 @@ void	launcher(t_info *info)
 	while (++i < info->num_of_phils)
 		pthread_create(&info->men[i].thread, NULL, &loop_thread, \
 						(void *)&info->men[i]);
+	pthread_create(&info->monitor, NULL, &monitor_thread, info);
+	pthread_join(info->monitor, NULL);
 	i = -1;
 	while (++i < info->num_of_phils)
 		pthread_join(info->men[i].thread, NULL);

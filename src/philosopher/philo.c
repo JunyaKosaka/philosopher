@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 22:52:02 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:27:54 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,10 @@ static void	destroy_all_mutexes(t_info *info)
 
 static int	init_info(t_info *info)
 {
-	pthread_mutex_init(&(info->baton), NULL);
-	pthread_mutex_init(&(info->done_persons), NULL);
+	if (pthread_mutex_init(&(info->baton), NULL))
+		return (error_handler(MUTEX_ERR_MSG));
+	if (pthread_mutex_init(&(info->done_persons), NULL))
+		return (error_handler(MUTEX_ERR_MSG));
 	if (init_men(info))
 		return (1);
 	if (init_forks(info))

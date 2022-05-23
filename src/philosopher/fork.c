@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:33:55 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 14:00:00 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:06:55 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	first_fork(t_man *man)
 	}
 	else
 	{
-		usleep(200); // 一斉に偶数の人が取る
+		usleep(200);
 		pthread_mutex_lock(man->right_fork);
 	}
 	// 死んでいるか確認

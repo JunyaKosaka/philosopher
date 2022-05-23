@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 14:03:28 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:09:33 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_info
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	baton;
 	pthread_mutex_t	done_persons;
+	pthread_t		monitor;
 	int				num_of_phils;
 	int				time_to_die;
 	int				time_to_eat;

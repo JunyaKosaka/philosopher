@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:39 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 22:54:39 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 14:29:05 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ int	main(int argc, char **argv)
 	if (input_info(&info, argc, argv))
 		return (error_handler(USAGE_MSG));
 	philosopher(&info);
-	// system("leaks philo");
+	system("leaks philo");
 	return (0);
 }
