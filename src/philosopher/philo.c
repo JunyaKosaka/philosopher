@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 14:27:54 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/23 15:29:19 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	init_men(t_info *info)
 
 	info->men = (t_man *)malloc(sizeof(t_man) * info->num_of_phils);
 	if (!(info->men))
-		return (error_handler("malloc error"));
+		return (error_handler(MALLOC_ERR_MSG));
 	man = (t_man){0};
 	man.baton = &(info->baton);
 	man.done_persons = &(info->done_persons);
