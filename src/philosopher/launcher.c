@@ -6,11 +6,21 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 14:39:52 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/24 20:18:39 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	count_done_persons(t_man *man)
+{
+	int	cnt;
+
+	pthread_mutex_lock(man->done_persons);
+	cnt = *(man->done_persons_cnt);
+	pthread_mutex_unlock(man->done_persons);
+	return (cnt);
+}
 
 /*  check if eat count reached must_eat_cnt  */
 static void	check_eat_cnt(t_man *man)
@@ -21,7 +31,7 @@ static void	check_eat_cnt(t_man *man)
 		*(man->done_persons_cnt) += 1;
 		pthread_mutex_unlock(man->done_persons);
 	}
-	if (*(man->done_persons_cnt) == man->num_of_phils)
+	if (count_done_persons(man) == man->num_of_phils)
 	{
 		pthread_mutex_lock(man->baton);
 		*(man->sim_done) = true;
@@ -38,7 +48,7 @@ void	*loop_thread(void *p)
 		phil_wait(man, 2 * man->time_to_eat);
 	if ((man->id & 1) == 0)
 		usleep(200);
-	while (*(man->sim_done) == false)
+	while (!done_simulation(man))
 	{
 		phil_eat(man);
 		phil_sleep(man);
@@ -46,28 +56,6 @@ void	*loop_thread(void *p)
 		check_eat_cnt(man);
 		if (man->num_of_phils & 1)
 			phil_wait(man, 2 * man->time_to_eat - man->time_to_sleep - 1);
-	}
-	return (NULL);
-}
-
-void	*monitor_thread(void *p)
-{
-	t_info		*info;
-	long long	cur_time;
-	int			i;
-
-	info = p;
-	while (info->sim_done == false)
-	{
-		cur_time = get_millisec();
-		i = -1;
-		while (++i < info->num_of_phils)
-		{
-			if (info->time_to_die <= cur_time - info->men[i].last_eat_time)
-			{
-				print_log(&(info->men[i]), DIED_MSG);
-			}
-		}
 	}
 	return (NULL);
 }

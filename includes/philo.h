@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 15:36:10 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/24 20:01:45 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			philosopher(t_info *info);
 void		print_log(t_man *man, char *msg);
 void		launcher(t_info *info);
 int			solo_philo(int time_to_die);
+bool		done_simulation(t_man *man);
 
 /*  fork  */
 void		take_two_forks(t_man *man);

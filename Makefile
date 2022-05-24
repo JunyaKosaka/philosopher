@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/24 14:20:54 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/24 20:16:37 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ INCDIRS		:= includes
 INCLUDE		:= $(addprefix -I, $(INCDIRS))
 
 CC			:= cc -pthread
-CFLAGS		:= -Wall -Wextra -Werror -MMD -MP # -fsanitize=address
+CFLAGS		:= -Wall -Wextra -Werror -MMD -MP # -fsanitize=thread
 
 all: $(NAME)
 
