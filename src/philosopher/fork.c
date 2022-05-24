@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 15:25:23 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 15:25:42 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/24 13:22:05 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@
 static void	first_fork(t_man *man)
 {
 	if (man->id & 1)
-	{
 		pthread_mutex_lock(man->left_fork);
-	}
 	else
-	{
-		usleep(200);
 		pthread_mutex_lock(man->right_fork);
-	}
 	print_log(man, FORK_MSG);
 }
 
@@ -31,14 +26,9 @@ static void	first_fork(t_man *man)
 static void	second_fork(t_man *man)
 {
 	if (man->id & 1)
-	{
-		usleep(200);
 		pthread_mutex_lock(man->right_fork);
-	}
 	else
-	{
 		pthread_mutex_lock(man->left_fork);
-	}
 	print_log(man, FORK_MSG);
 }
 

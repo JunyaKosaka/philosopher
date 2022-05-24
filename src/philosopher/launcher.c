@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 11:36:21 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/24 13:20:28 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	*loop_thread(void *p)
 
 	man = p;
 	if (man->num_of_phils & 1 && man->id == man->num_of_phils)
+		usleep(2000 * man->time_to_eat);
+	if (man->id % 2 == 0)
 		usleep(200);
 	while (*(man->sim_done) == false)
 	{
@@ -40,6 +42,8 @@ void	*loop_thread(void *p)
 		phil_sleep(man);
 		phil_think(man);
 		check_eat_cnt(man);
+		if (man->num_of_phils & 1)
+			phil_wait(man, man->time_to_eat);
 	}
 	return (NULL);
 }
