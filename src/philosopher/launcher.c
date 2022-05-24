@@ -6,19 +6,19 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 20:18:39 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 01:56:21 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	count_done_persons(t_man *man)
+static int	count_done_phils(t_man *man)
 {
 	int	cnt;
 
-	pthread_mutex_lock(man->done_persons);
-	cnt = *(man->done_persons_cnt);
-	pthread_mutex_unlock(man->done_persons);
+	pthread_mutex_lock(man->done_phils_mutex);
+	cnt = *(man->done_phils_cnt);
+	pthread_mutex_unlock(man->done_phils_mutex);
 	return (cnt);
 }
 
@@ -27,15 +27,15 @@ static void	check_eat_cnt(t_man *man)
 {
 	if (man->my_eat_cnt == man->must_eat_cnt)
 	{
-		pthread_mutex_lock(man->done_persons);
-		*(man->done_persons_cnt) += 1;
-		pthread_mutex_unlock(man->done_persons);
+		pthread_mutex_lock(man->done_phils_mutex);
+		*(man->done_phils_cnt) += 1;
+		pthread_mutex_unlock(man->done_phils_mutex);
 	}
-	if (count_done_persons(man) == man->num_of_phils)
+	if (count_done_phils(man) == man->num_of_phils)
 	{
-		pthread_mutex_lock(man->baton);
+		pthread_mutex_lock(man->sim_done_mutex);
 		*(man->sim_done) = true;
-		pthread_mutex_unlock(man->baton);
+		pthread_mutex_unlock(man->sim_done_mutex);
 	}
 }
 

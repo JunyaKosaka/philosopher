@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 20:26:56 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 01:56:21 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct s_man
 {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	*baton;
-	pthread_mutex_t	*done_persons;
+	pthread_mutex_t	*sim_done_mutex;
+	pthread_mutex_t	*done_phils_mutex;
 	pthread_t		thread;
 	long long		last_eat_time;
 	int				num_of_phils;
@@ -48,7 +48,7 @@ typedef struct s_man
 	int				must_eat_cnt;
 	int				my_eat_cnt;
 	int				id;
-	int				*done_persons_cnt;
+	int				*done_phils_cnt;
 	bool			*sim_done;
 }	t_man;
 
@@ -56,14 +56,14 @@ typedef struct s_info
 {
 	t_man			*men;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	baton;
-	pthread_mutex_t	done_persons;
+	pthread_mutex_t	sim_done_mutex;
+	pthread_mutex_t	done_phils_mutex;
 	pthread_t		monitor;
 	int				num_of_phils;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				done_persons_cnt;
+	int				done_phils_cnt;
 	int				must_eat_cnt;
 	bool			sim_done;
 }	t_info;

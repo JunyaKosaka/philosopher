@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 20:17:07 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 01:56:21 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ static int	init_men(t_info *info)
 	if (!(info->men))
 		return (error_handler(MALLOC_ERR_MSG));
 	man = (t_man){0};
-	man.baton = &(info->baton);
-	man.done_persons = &(info->done_persons);
+	man.sim_done_mutex = &(info->sim_done_mutex);
+	man.done_phils_mutex = &(info->done_phils_mutex);
 	man.last_eat_time = get_millisec();
 	man.num_of_phils = info->num_of_phils;
 	man.time_to_die = info->time_to_die;
 	man.time_to_eat = info->time_to_eat;
 	man.time_to_sleep = info->time_to_sleep;
 	man.must_eat_cnt = info->must_eat_cnt;
-	man.done_persons_cnt = &(info->done_persons_cnt);
+	man.done_phils_cnt = &(info->done_phils_cnt);
 	man.sim_done = &(info->sim_done);
 	i = -1;
 	while (++i < info->num_of_phils)
@@ -74,15 +74,15 @@ static void	destroy_all_mutexes(t_info *info)
 	i = -1;
 	while (++i < info->num_of_phils)
 		pthread_mutex_destroy(&(info->forks[i]));
-	pthread_mutex_destroy(&(info->baton));
-	pthread_mutex_destroy(&(info->done_persons));
+	pthread_mutex_destroy(&(info->sim_done_mutex));
+	pthread_mutex_destroy(&(info->done_phils_mutex));
 }
 
 static int	init_info(t_info *info)
 {
-	if (pthread_mutex_init(&(info->baton), NULL))
+	if (pthread_mutex_init(&(info->sim_done_mutex), NULL))
 		return (error_handler(MUTEX_ERR_MSG));
-	if (pthread_mutex_init(&(info->done_persons), NULL))
+	if (pthread_mutex_init(&(info->done_phils_mutex), NULL))
 		return (error_handler(MUTEX_ERR_MSG));
 	if (init_men(info))
 		return (1);

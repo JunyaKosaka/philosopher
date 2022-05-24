@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 23:33:44 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 20:11:53 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 01:55:00 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	print_log(t_man *man, char *msg)
 
 	if (done_simulation(man))
 		return ;
-	if (!done_simulation(man))
+	pthread_mutex_lock(man->sim_done_mutex);
+	if (*(man->sim_done) == false)
 	{
 		time = get_millisec();
 		printf("%lld %d %s\n", time, man->id, msg);
 		if (!ft_strcmp(msg, DIED_MSG))
 		{
-			pthread_mutex_lock(man->baton);
 			*(man->sim_done) = true;
-			pthread_mutex_unlock(man->baton);
 		}
 	}
+	pthread_mutex_unlock(man->sim_done_mutex);
 }

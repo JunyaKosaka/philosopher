@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:18:08 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 20:18:37 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 01:55:00 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ static bool	done_sim(t_info *info)
 {
 	bool	done;
 
-	pthread_mutex_lock(&info->baton);
+	pthread_mutex_lock(&info->sim_done_mutex);
 	done = info->sim_done;
-	pthread_mutex_unlock(&info->baton);
+	pthread_mutex_unlock(&info->sim_done_mutex);
 	return (done);
 }
 
@@ -40,6 +40,7 @@ void	*monitor_thread(void *p)
 				print_log(&(info->men[i]), DIED_MSG);
 			}
 		}
+		usleep(200);
 	}
 	return (NULL);
 }

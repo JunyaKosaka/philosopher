@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/24 20:27:10 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/25 01:51:27 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ INCDIRS		:= includes
 INCLUDE		:= $(addprefix -I, $(INCDIRS))
 
 CC			:= cc -pthread
-CFLAGS		:= -Wall -Wextra -Werror -MMD -MP # -fsanitize=thread
+CFLAGS		:= -Wall -Wextra -Werror -MMD -MP # -g -fsanitize=thread
 
 all: $(NAME)
 
@@ -61,7 +61,7 @@ test1:
 	make
 	./$(NAME) 4 600 200 200 5
 
-test2: # shoud die
+test2: # should die
 	make
 	./$(NAME) 4 310 200 100 3
 
@@ -71,11 +71,11 @@ test3:
 
 test4:
 	make
-	./$(NAME) 200 800 200 200 10
+	./$(NAME) 4 410 200 200 10
 
 test5:
 	make
-	./$(NAME) 5 800 200 200 4
+	./$(NAME) 5 800 200 200 7
 
 solo: # should die
 	make

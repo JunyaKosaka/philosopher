@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 20:17:32 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 01:55:00 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ bool	done_simulation(t_man *man)
 {
 	bool	done;
 
-	pthread_mutex_lock(man->baton);
+	pthread_mutex_lock(man->sim_done_mutex);
 	done = *(man->sim_done);
-	pthread_mutex_unlock(man->baton);
+	pthread_mutex_unlock(man->sim_done_mutex);
 	return (done);
 }
 
