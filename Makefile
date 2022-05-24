@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/23 15:33:34 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/24 11:37:17 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ test:
 	make test2
 	make test3
 	make test4
+	make test5
 	make solo
 
 test1:
@@ -71,6 +72,10 @@ test3:
 test4:
 	make
 	./$(NAME) 200 800 200 200 10
+
+test5:
+	make
+	./$(NAME) 5 800 200 200 7
 
 solo:
 	make
