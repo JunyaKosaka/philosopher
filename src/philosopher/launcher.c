@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 14:35:56 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/24 14:39:52 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*loop_thread(void *p)
 	man = p;
 	if (man->num_of_phils & 1 && man->id == man->num_of_phils)
 		phil_wait(man, 2 * man->time_to_eat);
-	if (man->id & 1 == 0)
+	if ((man->id & 1) == 0)
 		usleep(200);
 	while (*(man->sim_done) == false)
 	{
