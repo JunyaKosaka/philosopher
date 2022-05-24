@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/24 13:20:28 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/24 14:35:56 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ static void	check_eat_cnt(t_man *man)
 	}
 	if (*(man->done_persons_cnt) == man->num_of_phils)
 	{
+		pthread_mutex_lock(man->baton);
 		*(man->sim_done) = true;
+		pthread_mutex_unlock(man->baton);
 	}
 }
 
@@ -33,8 +35,8 @@ void	*loop_thread(void *p)
 
 	man = p;
 	if (man->num_of_phils & 1 && man->id == man->num_of_phils)
-		usleep(2000 * man->time_to_eat);
-	if (man->id % 2 == 0)
+		phil_wait(man, 2 * man->time_to_eat);
+	if (man->id & 1 == 0)
 		usleep(200);
 	while (*(man->sim_done) == false)
 	{
@@ -43,7 +45,7 @@ void	*loop_thread(void *p)
 		phil_think(man);
 		check_eat_cnt(man);
 		if (man->num_of_phils & 1)
-			phil_wait(man, man->time_to_eat);
+			phil_wait(man, 2 * man->time_to_eat - man->time_to_sleep - 1);
 	}
 	return (NULL);
 }
@@ -64,10 +66,8 @@ void	*monitor_thread(void *p)
 			if (info->time_to_die <= cur_time - info->men[i].last_eat_time)
 			{
 				print_log(&(info->men[i]), DIED_MSG);
-				info->sim_done = true;
 			}
 		}
-		usleep(50);
 	}
 	return (NULL);
 }

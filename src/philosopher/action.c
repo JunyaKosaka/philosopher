@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 14:06:11 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/24 14:34:25 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	phil_wait(t_man *man, int waiting_time)
 
 	start = get_millisec();
 	cur_time = start;
-	while (cur_time - start < waiting_time)
+	while (*(man->sim_done) == false && cur_time - start < waiting_time)
 	{
 		cur_time = get_millisec();
 		if (man->time_to_die <= cur_time - man->last_eat_time)

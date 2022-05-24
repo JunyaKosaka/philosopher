@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/24 13:20:02 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/24 14:20:54 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ test1:
 	make
 	./$(NAME) 4 600 200 200 5
 
-test2:
+test2: # shoud die
 	make
 	./$(NAME) 4 310 200 100 3
 
@@ -75,9 +75,9 @@ test4:
 
 test5:
 	make
-	./$(NAME) 5 800 200 200 7
+	./$(NAME) 5 800 200 200 4
 
-solo:
+solo: # should die
 	make
 	./$(NAME) 1 310 200 100 3
 
