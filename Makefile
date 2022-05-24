@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/24 20:16:37 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/24 20:27:10 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,8 @@ NAME		:= philo
 
 SRCROOT		:= src
 SRCDIRS		:= $(shell find $(SRCROOT) -type d)
-# SRCS		:= $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
-SRCS		:= src/philosopher/action.c src/philosopher/fork.c src/philosopher/launcher.c src/philosopher/philo.c src/philosopher/print_log.c src/utils/error_handler.c src/utils/free.c src/utils/ft_num.c src/utils/ft_str.c src/utils/get_milliseconds.c src/main/main.c
+SRCS		:= $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
+# SRCS		:= 
 
 OBJROOT		:= obj
 OBJDIRS		:= $(patsubst $(SRCROOT)/%, $(OBJROOT)/%, $(SRCDIRS))
