@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 17:53:10 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 17:56:38 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static void	check_eat_cnt(t_man *man)
 
 static void	start_alternately(t_man *man)
 {
-	if (man->num_of_phils & 1 && man->id == man->num_of_phils)
-		phil_wait(man, 2 * man->time_to_eat - 1);
-	else if ((man->id & 1) == 0)
+	if ((man->id & 1) == 0)
 		phil_wait(man, man->time_to_eat - 1);
+	else if (man->num_of_phils & 1 && man->id == man->num_of_phils)
+		phil_wait(man, 2 * man->time_to_eat - 1);
 }
 
 void	*loop_thread(void *p)
