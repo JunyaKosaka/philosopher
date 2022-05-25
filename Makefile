@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/25 17:00:31 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/25 19:36:17 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ test:
 
 test1:
 	make
-	./$(NAME) 4 600 200 200 5
+	./$(NAME) 4 800 200 200 5
 
 test2: # should die
 	make

@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 01:56:21 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 19:32:45 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	init_men(t_info *info)
 	man = (t_man){0};
 	man.sim_done_mutex = &(info->sim_done_mutex);
 	man.done_phils_mutex = &(info->done_phils_mutex);
+	man.time_keeper = &(info->time_keeper);
 	man.last_eat_time = get_millisec();
 	man.num_of_phils = info->num_of_phils;
 	man.time_to_die = info->time_to_die;
@@ -76,6 +77,7 @@ static void	destroy_all_mutexes(t_info *info)
 		pthread_mutex_destroy(&(info->forks[i]));
 	pthread_mutex_destroy(&(info->sim_done_mutex));
 	pthread_mutex_destroy(&(info->done_phils_mutex));
+	pthread_mutex_destroy(&(info->time_keeper));
 }
 
 static int	init_info(t_info *info)
@@ -83,6 +85,8 @@ static int	init_info(t_info *info)
 	if (pthread_mutex_init(&(info->sim_done_mutex), NULL))
 		return (error_handler(MUTEX_ERR_MSG));
 	if (pthread_mutex_init(&(info->done_phils_mutex), NULL))
+		return (error_handler(MUTEX_ERR_MSG));
+	if (pthread_mutex_init(&(info->time_keeper), NULL))
 		return (error_handler(MUTEX_ERR_MSG));
 	if (init_men(info))
 		return (1);

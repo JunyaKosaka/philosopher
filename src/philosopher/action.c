@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 17:43:50 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 19:37:26 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,9 @@ void	phil_eat(t_man *man)
 		return ;
 	}
 	print_log(man, EAT_MSG);
+	pthread_mutex_lock(man->time_keeper);
 	man->last_eat_time = get_millisec();
+	pthread_mutex_unlock(man->time_keeper);
 	phil_wait(man, man->time_to_eat);
 	(man->my_eat_cnt)++;
 	unlock_two_forks(man);

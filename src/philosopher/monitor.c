@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:18:08 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 17:51:40 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 19:35:41 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static bool	done_sim(t_info *info)
 void	*monitor_thread(void *p)
 {
 	t_info		*info;
+	t_man		man;
 	long long	cur_time;
+	long long	last_eat_time;
 	int			i;
 
 	info = p;
@@ -35,8 +37,12 @@ void	*monitor_thread(void *p)
 		i = -1;
 		while (++i < info->num_of_phils)
 		{
-			if (info->time_to_die < cur_time - info->men[i].last_eat_time)
-				print_log(&(info->men[i]), DIED_MSG);
+			man = info->men[i];
+			pthread_mutex_lock(man.time_keeper);
+			last_eat_time = man.last_eat_time;
+			pthread_mutex_unlock(man.time_keeper);
+			if (info->time_to_die < cur_time - last_eat_time)
+				print_log(&man, DIED_MSG);
 		}
 		usleep(500);
 	}
