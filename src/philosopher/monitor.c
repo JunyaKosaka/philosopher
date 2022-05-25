@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:18:08 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 01:55:00 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 16:05:02 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	*monitor_thread(void *p)
 		i = -1;
 		while (++i < info->num_of_phils)
 		{
-			if (info->time_to_die <= cur_time - info->men[i].last_eat_time)
+			if (info->time_to_die < cur_time - info->men[i].last_eat_time)
 			{
 				print_log(&(info->men[i]), DIED_MSG);
 			}
 		}
-		usleep(200);
+		usleep(500);
 	}
 	return (NULL);
 }

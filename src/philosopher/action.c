@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 01:55:00 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 17:07:56 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	phil_wait(t_man *man, int waiting_time)
 	while ((done_simulation(man) == false) && (cur_time - start < waiting_time))
 	{
 		cur_time = get_millisec();
-		if (man->time_to_die <= cur_time - man->last_eat_time)
+		if (man->time_to_die < cur_time - man->last_eat_time)
 		{
 			print_log(man, DIED_MSG);
 			return ;
 		}
-		usleep(200);
+		usleep(500);
 	}
 }
 
@@ -49,13 +49,13 @@ void	phil_eat(t_man *man)
 
 	take_two_forks(man);
 	cur_time = get_millisec();
-	if (cur_time - man->last_eat_time >= man->time_to_die)
+	if (man->time_to_die < cur_time - man->last_eat_time)
 	{
 		print_log(man, DIED_MSG);
 		return ;
 	}
-	man->last_eat_time = get_millisec();
 	print_log(man, EAT_MSG);
+	man->last_eat_time = get_millisec();
 	phil_wait(man, man->time_to_eat);
 	(man->my_eat_cnt)++;
 	unlock_two_forks(man);
