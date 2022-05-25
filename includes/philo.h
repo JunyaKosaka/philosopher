@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 19:31:14 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 19:38:43 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_man
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	*sim_done_mutex;
 	pthread_mutex_t	*done_phils_mutex;
-	pthread_mutex_t	*time_keeper;
+	pthread_mutex_t	*time_keeper_mutex;
 	pthread_t		thread;
 	long long		last_eat_time;
 	int				num_of_phils;
@@ -59,7 +59,7 @@ typedef struct s_info
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	sim_done_mutex;
 	pthread_mutex_t	done_phils_mutex;
-	pthread_mutex_t	time_keeper;
+	pthread_mutex_t	time_keeper_mutex;
 	pthread_t		monitor;
 	int				num_of_phils;
 	int				time_to_die;
