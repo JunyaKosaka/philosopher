@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 17:07:56 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 17:43:50 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,8 @@ void	phil_sleep(t_man *man)
 void	phil_think(t_man *man)
 {
 	print_log(man, THINK_MSG);
+	if (man->num_of_phils & 1)
+		phil_wait(man, 2 * man->time_to_eat - man->time_to_sleep - 1);
+	else
+		phil_wait(man, man->time_to_eat - man->time_to_sleep - 1);
 }

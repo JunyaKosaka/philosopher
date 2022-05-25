@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 17:03:35 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/25 17:53:10 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ static int	count_done_phils(t_man *man)
 /*  check if eat count reached must_eat_cnt  */
 static void	check_eat_cnt(t_man *man)
 {
-	if (man->my_eat_cnt == man->must_eat_cnt)
-	{
-		pthread_mutex_lock(man->done_phils_mutex);
-		*(man->done_phils_cnt) += 1;
-		pthread_mutex_unlock(man->done_phils_mutex);
-	}
+	if (man->my_eat_cnt != man->must_eat_cnt)
+		return ;
+	pthread_mutex_lock(man->done_phils_mutex);
+	*(man->done_phils_cnt) += 1;
+	pthread_mutex_unlock(man->done_phils_mutex);
 	if (count_done_phils(man) == man->num_of_phils)
 	{
 		pthread_mutex_lock(man->sim_done_mutex);
@@ -39,25 +38,26 @@ static void	check_eat_cnt(t_man *man)
 	}
 }
 
+static void	start_alternately(t_man *man)
+{
+	if (man->num_of_phils & 1 && man->id == man->num_of_phils)
+		phil_wait(man, 2 * man->time_to_eat - 1);
+	else if ((man->id & 1) == 0)
+		phil_wait(man, man->time_to_eat - 1);
+}
+
 void	*loop_thread(void *p)
 {
 	t_man	*man;
 
 	man = p;
-	if (man->num_of_phils & 1 && man->id == man->num_of_phils)
-		phil_wait(man, 2 * man->time_to_eat - 1);
-	else if ((man->id & 1) == 0)
-		phil_wait(man, man->time_to_eat - 1);
+	start_alternately(man);
 	while (!done_simulation(man))
 	{
 		phil_eat(man);
+		check_eat_cnt(man);
 		phil_sleep(man);
 		phil_think(man);
-		check_eat_cnt(man);
-		if (man->num_of_phils & 1)
-			phil_wait(man, 2 * man->time_to_eat - man->time_to_sleep - 1);
-		else
-			phil_wait(man, man->time_to_eat - man->time_to_sleep - 1);
 	}
 	return (NULL);
 }
@@ -75,18 +75,4 @@ void	launcher(t_info *info)
 	i = -1;
 	while (++i < info->num_of_phils)
 		pthread_join(info->men[i].thread, NULL);
-}
-
-/*  solo philosopher cannot survive  */
-int	solo_philo(int time_to_die)
-{
-	long long	time;
-	int			id;
-
-	time = get_millisec();
-	id = 1;
-	printf("%lld %d %s\n", time, id, FORK_MSG);
-	usleep(time_to_die * 1000);
-	printf("%lld %d %s\n", time + time_to_die, id, DIED_MSG);
-	return (0);
 }
