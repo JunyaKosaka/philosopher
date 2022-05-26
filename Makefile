@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/26 17:18:09 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/26 17:45:25 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ norm:
 	norminette $(SRCROOT) $(INCDIRS)
 
 atest:
-	for i in `seq 1 3`; do make test; done | grep "died" | wc
+	for i in `seq 1 2`; do make test; done | grep "died" | wc
 
 test:
 	make test1
@@ -74,7 +74,7 @@ test3:
 
 test4:
 	make
-	./$(NAME) 200 410 200 200 10
+	./$(NAME) 200 430 200 200 10
 
 test5:
 	make
