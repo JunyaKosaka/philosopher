@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 19:38:43 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/26 12:43:04 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	phil_wait(t_man *man, int waiting_time)
 	cur_time = start;
 	while ((done_simulation(man) == false) && (cur_time - start < waiting_time))
 	{
+		usleep(500);
 		cur_time = get_millisec();
 		if (man->time_to_die < cur_time - man->last_eat_time)
 		{
 			print_log(man, DIED_MSG);
 			return ;
 		}
-		usleep(500);
 	}
 }
 
