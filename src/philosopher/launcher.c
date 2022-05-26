@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/26 17:18:38 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/26 17:29:05 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	launcher(t_info *info)
 	while (++i < info->num_of_phils)
 		pthread_create(&info->men[i].thread, NULL, &loop_thread, \
 						(void *)&info->men[i]);
-	pthread_create(&info->monitor, NULL, &monitor_thread, info);
-	pthread_join(info->monitor, NULL);
+	// pthread_create(&info->monitor, NULL, &monitor_thread, info);
+	// pthread_join(info->monitor, NULL);
 	i = -1;
 	while (++i < info->num_of_phils)
 		pthread_join(info->men[i].thread, NULL);
