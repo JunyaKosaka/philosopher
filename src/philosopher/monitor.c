@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:18:08 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 19:38:43 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/26 17:18:58 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ void	*monitor_thread(void *p)
 	int			i;
 
 	info = p;
+	usleep(1000);
 	while (done_sim(info) == false)
 	{
+		usleep(500);
 		cur_time = get_millisec();
 		i = -1;
 		while (++i < info->num_of_phils)
@@ -44,7 +46,6 @@ void	*monitor_thread(void *p)
 			if (info->time_to_die < cur_time - last_eat_time)
 				print_log(&man, DIED_MSG);
 		}
-		usleep(500);
 	}
 	return (NULL);
 }

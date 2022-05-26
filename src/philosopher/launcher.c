@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 17:56:38 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/26 17:18:38 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	check_eat_cnt(t_man *man)
 	}
 }
 
+/*  a philosopher whose id is even wait at the beginning  */
 static void	start_alternately(t_man *man)
 {
 	if ((man->id & 1) == 0)
