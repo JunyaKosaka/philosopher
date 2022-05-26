@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:18:08 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/26 17:41:53 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/26 17:47:31 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ static void	monitor_phils(t_info *info, int time_to_die, long long cur_time)
 	long long	last_eat_time;
 	int			i;
 
+	pthread_mutex_lock(&(info->time_keeper_mutex));
 	i = -1;
 	while (++i < info->num_of_phils)
 	{
-		pthread_mutex_lock(&(info->time_keeper_mutex));
 		last_eat_time = info->men[i].last_eat_time;
 		if (time_to_die < cur_time - last_eat_time)
 			print_log(&info->men[i], DIED_MSG);
-		pthread_mutex_unlock(&(info->time_keeper_mutex));
 	}
+	pthread_mutex_unlock(&(info->time_keeper_mutex));
 }
 
 void	*monitor_thread(void *p)
