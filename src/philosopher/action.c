@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/26 12:43:04 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/27 12:03:04 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	phil_eat(t_man *man)
 
 	take_two_forks(man);
 	cur_time = get_millisec();
-	if (man->time_to_die < cur_time - man->last_eat_time)
+	if (man->time_to_die <= cur_time - man->last_eat_time)
 	{
 		print_log(man, DIED_MSG);
 		return ;
