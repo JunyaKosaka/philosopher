@@ -6,11 +6,18 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:31:03 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/22 16:34:48 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/27 12:27:26 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	ft_max(int a, int b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
 
 int	ft_isspace(int c)
 {

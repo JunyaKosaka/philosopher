@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 19:38:43 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/27 12:27:56 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int			error_handler(char *msg);
 size_t		ft_strlen(const char *s);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
+int			ft_max(int a, int b);
 int			ft_isspace(int c);
 int			ft_isdigit(int c);
 int			ft_atoi(const char *str);
