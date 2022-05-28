@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 19:38:43 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/28 23:09:09 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,6 @@ static int	init_forks(t_info *info)
 	return (0);
 }
 
-static void	destroy_all_mutexes(t_info *info)
-{
-	int	i;
-
-	i = -1;
-	while (++i < info->num_of_phils)
-		pthread_mutex_destroy(&(info->forks[i]));
-	pthread_mutex_destroy(&(info->sim_done_mutex));
-	pthread_mutex_destroy(&(info->done_phils_mutex));
-	pthread_mutex_destroy(&(info->time_keeper_mutex));
-}
-
 static int	init_info(t_info *info)
 {
 	if (pthread_mutex_init(&(info->sim_done_mutex), NULL))
@@ -100,8 +88,7 @@ int	philosopher(t_info *info)
 	if (info->num_of_phils == 1)
 		return (solo_philo(info->time_to_die));
 	if (init_info(info))
-		return (free_all(info));
+		return (deinit_info(info));
 	launcher(info);
-	destroy_all_mutexes(info);
-	return (free_all(info));
+	return (deinit_info(info));
 }

@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/28 22:30:16 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/28 23:28:48 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME		:= philo
 SRCROOT		:= src
 SRCDIRS		:= $(shell find $(SRCROOT) -type d)
 # SRCS		:= $(foreach dir, $(SRCDIRS), $(wildcard $(dir)/*.c))
-SRCS		:= src/philosopher/action.c src/philosopher/fork.c src/philosopher/launcher.c src/philosopher/monitor.c src/philosopher/philo.c src/philosopher/print_log.c src/philosopher/solo_philo.c src/utils/error_handler.c src/utils/free.c src/utils/ft_num.c src/utils/ft_str.c src/utils/get_milliseconds.c src/main/main.c
+SRCS		:= src/philosopher/action.c src/philosopher/deinit.c src/philosopher/fork.c src/philosopher/launcher.c src/philosopher/monitor.c src/philosopher/philo.c src/philosopher/print_log.c src/philosopher/solo_philo.c src/utils/error_handler.c src/utils/free.c src/utils/ft_num.c src/utils/ft_str.c src/utils/get_milliseconds.c src/main/main.c
 
 OBJROOT		:= obj
 OBJDIRS		:= $(patsubst $(SRCROOT)/%, $(OBJROOT)/%, $(SRCDIRS))
@@ -90,4 +90,4 @@ solo:
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re norm atest test test1 test2 test3 test4 test5 solo
+.PHONY: all clean fclean re norm atest test test1 test2 test3 test4 test5 test6 solo

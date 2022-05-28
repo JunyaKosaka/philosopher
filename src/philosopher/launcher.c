@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/19 16:01:17 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/28 21:58:00 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/28 23:11:37 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,17 @@ static void	start_alternately(t_man *man)
 	if ((man->num_of_phils & 1) == 0)
 	{
 		if ((man->id & 1) == 0)
-			phil_wait(man, ft_max(1, man->time_to_eat / 2));		
+			phil_wait(man, ft_max(1, man->time_to_eat / 2));
+		return ;
 	}
-	else
-	{
-		if (man->id == 1)
-			return ;
-		diff = man->time_to_eat / ((man->num_of_phils - 1) / 2);
-		waiting_time = man->time_to_eat;
-		if (man->id & 1) waiting_time *= 2;
-		waiting_time -= diff * ((man->id - 2) / 2);
-		phil_wait(man, waiting_time - 1);
-	}
+	if (man->id == 1)
+		return ;
+	diff = man->time_to_eat / ((man->num_of_phils - 1) / 2);
+	waiting_time = man->time_to_eat;
+	if (man->id & 1)
+		waiting_time *= 2;
+	waiting_time -= diff * ((man->id - 2) / 2);
+	phil_wait(man, waiting_time - 1);
 }
 
 void	*loop_thread(void *p)
