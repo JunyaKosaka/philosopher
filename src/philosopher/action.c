@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/27 12:33:06 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/28 22:29:46 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	phil_wait(t_man *man, int waiting_time)
 	cur_time = start;
 	while ((done_simulation(man) == false) && (cur_time - start < waiting_time))
 	{
+		if (waiting_time - (cur_time - start) > 5)
+			usleep(3000);
 		usleep(500);
 		cur_time = get_millisec();
 		if (man->time_to_die <= cur_time - man->last_eat_time)
@@ -73,9 +75,14 @@ void	phil_sleep(t_man *man)
 /*  philosopher thinks  */
 void	phil_think(t_man *man)
 {
+	int	diff;
+
 	print_log(man, THINK_MSG);
 	if (man->num_of_phils & 1)
-		phil_wait(man, 2 * man->time_to_eat - man->time_to_sleep - 1);
+	{
+		diff = man->time_to_eat / ((man->num_of_phils - 1) / 2);
+		phil_wait(man, man->time_to_eat + diff - man->time_to_sleep - 1);
+	}
 	else
 		phil_wait(man, man->time_to_eat - man->time_to_sleep - 1);
 }

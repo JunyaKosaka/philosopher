@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:31:03 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/27 12:27:26 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/28 22:07:57 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,19 @@ int	ft_isdigit(int c)
 
 static bool	is_over(long n, int m)
 {
-	return (n > (LONG_MAX - m) / 10);
+	return (n > (INT_MAX - m) / 10);
 }
 
-int	ft_atoi(const char *str)
+/*  handle only none negative int  */
+int	phil_atoi(const char *str)
 {
 	long	ret;
-	int		sign;
 
-	sign = 1;
 	ret = 0;
 	while (ft_isspace(*str))
 		str++;
-	if (*str == '+' || *str == '-')
-	{
-		sign = 44 - *str;
+	if (*str == '+')
 		str++;
-	}
 	while (ft_isdigit(*str))
 	{
 		if (is_over(ret, *str - '0'))
@@ -55,5 +51,7 @@ int	ft_atoi(const char *str)
 		ret = ret * 10 + (*str - '0');
 		str++;
 	}
-	return (ret * sign);
+	if (*str != '\0')
+		return (-1);
+	return (ret);
 }

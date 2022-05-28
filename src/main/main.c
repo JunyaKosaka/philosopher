@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:39 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/23 15:37:27 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/28 22:34:10 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 [number_of_times_each_philosopher_must_eat] */
 static int	input_info(t_info *info, int argc, char **argv)
 {
-	info->num_of_phils = ft_atoi(argv[1]);
-	info->time_to_die = ft_atoi(argv[2]);
-	info->time_to_eat = ft_atoi(argv[3]);
-	info->time_to_sleep = ft_atoi(argv[4]);
+	info->num_of_phils = phil_atoi(argv[1]);
+	info->time_to_die = phil_atoi(argv[2]);
+	info->time_to_eat = phil_atoi(argv[3]);
+	info->time_to_sleep = phil_atoi(argv[4]);
 	info->must_eat_cnt = -1;
 	if (argc == 6)
 	{
-		info->must_eat_cnt = ft_atoi(argv[5]);
+		info->must_eat_cnt = phil_atoi(argv[5]);
 		if (info->must_eat_cnt <= 0)
 			return (1);
 	}

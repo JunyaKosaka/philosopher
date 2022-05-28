@@ -6,12 +6,13 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/24 20:18:08 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/27 12:32:58 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/28 22:00:46 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*  done simulation  */
 static bool	done_sim(t_info *info)
 {
 	bool	done;
