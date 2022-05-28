@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:31:03 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/28 22:07:57 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/28 23:43:16 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ int	ft_max(int a, int b)
 	return (b);
 }
 
-int	ft_isspace(int c)
+static int	ft_isspace(int c)
 {
 	return (('\t' <= c && c <= '\r') || c == ' ');
 }
 
-int	ft_isdigit(int c)
+static int	ft_isdigit(int c)
 {
 	return ('0' <= c && c <= '9');
 }
