@@ -6,7 +6,7 @@
 #    By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/15 16:31:12 by jkosaka           #+#    #+#              #
-#    Updated: 2022/05/28 23:28:48 by jkosaka          ###   ########.fr        #
+#    Updated: 2022/05/28 23:38:41 by jkosaka          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ test:
 	make test3
 	make test4
 	make test5
+	make test6
 	make solo
 
 test1:
@@ -74,15 +75,15 @@ test3:
 
 test4:
 	make
-	./$(NAME) 200 430 200 200 10
+	./$(NAME) 200 430 200 200 5
 
 test5:
 	make
-	./$(NAME) 5 550 200 200 7
+	./$(NAME) 5 515 200 200 5
 
 test6:
 	make
-	./$(NAME) 199 410 200 200 4
+	./$(NAME) 199 415 200 200 4
 
 solo:
 	make
