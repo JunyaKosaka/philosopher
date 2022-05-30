@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/28 22:29:46 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/30 22:43:33 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	phil_eat(t_man *man)
 	if (man->time_to_die <= cur_time - man->last_eat_time)
 	{
 		print_log(man, DIED_MSG);
+		unlock_two_forks(man);
 		return ;
 	}
 	print_log(man, EAT_MSG);
