@@ -6,21 +6,11 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 13:36:54 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/30 22:43:33 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/30 23:20:58 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-bool	done_simulation(t_man *man)
-{
-	bool	done;
-
-	pthread_mutex_lock(man->sim_done_mutex);
-	done = *(man->sim_done);
-	pthread_mutex_unlock(man->sim_done_mutex);
-	return (done);
-}
 
 /*  wait until waiting_time passes  */
 void	phil_wait(t_man *man, int waiting_time)
@@ -44,6 +34,13 @@ void	phil_wait(t_man *man, int waiting_time)
 	}
 }
 
+static void	set_last_eat_time(t_man *man)
+{
+	pthread_mutex_lock(man->time_keeper_mutex);
+	man->last_eat_time = get_millisec();
+	pthread_mutex_unlock(man->time_keeper_mutex);
+}
+
 /*  philosopher eats  */
 void	phil_eat(t_man *man)
 {
@@ -58,9 +55,7 @@ void	phil_eat(t_man *man)
 		return ;
 	}
 	print_log(man, EAT_MSG);
-	pthread_mutex_lock(man->time_keeper_mutex);
-	man->last_eat_time = get_millisec();
-	pthread_mutex_unlock(man->time_keeper_mutex);
+	set_last_eat_time(man);
 	phil_wait(man, man->time_to_eat);
 	(man->my_eat_cnt)++;
 	unlock_two_forks(man);

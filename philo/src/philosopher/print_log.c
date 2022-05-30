@@ -6,11 +6,21 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 23:33:44 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/25 17:06:54 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/30 23:19:42 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+bool	done_simulation(t_man *man)
+{
+	bool	done;
+
+	pthread_mutex_lock(man->sim_done_mutex);
+	done = *(man->sim_done);
+	pthread_mutex_unlock(man->sim_done_mutex);
+	return (done);
+}
 
 /*  print log with message  */
 void	print_log(t_man *man, char *msg)
