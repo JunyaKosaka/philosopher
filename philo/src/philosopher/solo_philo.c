@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 17:50:21 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/26 12:55:29 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/30 23:41:25 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,24 @@ static void	solo_wait(int waiting_time)
 	}
 }
 
-/*  solo philosopher cannot survive  */
-int	solo_philo(int time_to_die)
+void	*solo_loop_thread(void *p)
 {
-	long long	time;
-	int			id;
+	t_man		*man;
 
-	time = get_millisec();
-	id = 1;
-	printf("%lld %d %s\n", time, id, FORK_MSG);
-	solo_wait(time_to_die);
-	time = get_millisec();
-	printf("%lld %d %s\n", time, id, DIED_MSG);
+	man = p;
+	pthread_mutex_lock(man->left_fork);
+	print_log(man, FORK_MSG);
+	pthread_mutex_unlock(man->left_fork);
+	solo_wait(man->time_to_die);
+	print_log(man, DIED_MSG);
+	return (NULL);
+}
+
+int	solo_philo(t_info *info)
+{
+	pthread_create(&info->men[0].thread, NULL, &solo_loop_thread, \
+			(void *)&info->men[0]);
+	pthread_join(info->men[0].thread, NULL);
+	deinit_info(info);
 	return (0);
 }

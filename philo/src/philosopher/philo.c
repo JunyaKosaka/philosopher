@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:08:34 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/28 23:09:09 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/30 23:40:11 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ static int	init_info(t_info *info)
 
 int	philosopher(t_info *info)
 {
-	if (info->num_of_phils == 1)
-		return (solo_philo(info->time_to_die));
 	if (init_info(info))
 		return (deinit_info(info));
+	if (info->num_of_phils == 1)
+		return (solo_philo(info));
 	launcher(info);
 	return (deinit_info(info));
 }

@@ -6,7 +6,7 @@
 /*   By: jkosaka <jkosaka@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 16:02:31 by jkosaka           #+#    #+#             */
-/*   Updated: 2022/05/28 23:43:00 by jkosaka          ###   ########.fr       */
+/*   Updated: 2022/05/30 23:40:38 by jkosaka          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_info
 int			philosopher(t_info *info);
 void		print_log(t_man *man, char *msg);
 void		launcher(t_info *info);
-int			solo_philo(int time_to_die);
+int			solo_philo(t_info *info);
 bool		done_simulation(t_man *man);
 void		*monitor_thread(void *p);
 int			deinit_info(t_info *info);
